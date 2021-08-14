@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'simple_history',
+    'safedelete',
 
     'users',
     'movies',
