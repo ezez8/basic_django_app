@@ -1,17 +1,6 @@
 from django.db import models
-from simple_history.models import HistoricalRecords
-from safedelete.models import SafeDeleteModel, SOFT_DELETE
 
-class Entity(SafeDeleteModel):
-    _safedelete_policy = SOFT_DELETE
-
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-
-    history = HistoricalRecords(inherit=True)
-
-    class Meta:
-        abstract = True
+from basic_django_app.models import Entity
 
 class Film(Entity):
     name = models.CharField(max_length=50)
