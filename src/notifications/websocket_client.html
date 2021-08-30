@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+    <h1>Notifications</h1>
+
+    <script>
+      token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI5Njc4ODUzLCJqdGkiOiJjYTA3ZGY1NzhiNGI0YTExOGM0NTJjYjQ3MjBjMTA2YSIsInVzZXJfaWQiOjh9.0--6aO898watC-jFZieZKD1buZNKr3W-fUKLKz8EwBw'
+      var notificationSocket = new WebSocket('ws://127.0.0.1:8000/?token=' + token);
+      
+      notificationSocket.onmessage = function(message) {
+        var data = JSON.parse(event.data);
+      };
+
+      notificationSocket.onclose = function(e) {
+		    console.error('Notification Socket closed unexpectedly');
+	    };
+
+      notificationSocket.onopen = function(e){
+        console.log("Notification Socket on open: " + e)
+      }
+
+      notificationSocket.onerror = function(e){
+        console.log('Notification Socket error', e)
+      }
+
+      if (notificationSocket.readyState == WebSocket.OPEN) {
+        console.log("Notification Socket OPEN complete.")
+      } 
+      else if (notificationSocket.readyState == WebSocket.CONNECTING){
+        console.log("Notification Socket connecting..")
+      }
+
+    </script>
+  </body>
+</html>

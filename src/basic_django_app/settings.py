@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-x7ji5#6))ucdj^g82a(#o&v$&a_26be#il!=vqzhui9f2(621w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'safedelete',
     'django_filters',
     'crispy_forms',
+    'channels',
 
     'users',
     'movies',
@@ -85,6 +86,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'basic_django_app.wsgi.application'
 
+ASGI_APPLICATION = 'basic_django_app.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
