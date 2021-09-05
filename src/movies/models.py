@@ -12,5 +12,5 @@ class Actor(Entity):
 class Participation(Entity):
     main_character = models.BooleanField(default=False)
     character_name = models.CharField(max_length=50, default='')
-    film = models.ForeignKey(to='movies.film', on_delete=models.PROTECT, related_name='participations')
-    actor = models.ForeignKey(to='movies.actor', on_delete=models.PROTECT, related_name='participations')
+    film = models.ForeignKey(to='movies.film', on_delete=models.CASCADE, related_name='participations')
+    actor = models.ForeignKey(to='movies.actor', on_delete=models.CASCADE, related_name='participations')
