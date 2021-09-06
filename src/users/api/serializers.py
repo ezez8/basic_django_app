@@ -1,16 +1,22 @@
 from rest_framework import serializers
+from basic_django_app.serializers import EntitySerializer
+from django.contrib.auth.hashers import make_password
 
 from users.models import User
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
+class UserSerializer(EntitySerializer):
+    class Meta(EntitySerializer.Meta):
         model = User
-        fields = ['url', 'id', 'email', 'password', 'created', 'updated', 'deleted',]
-        extra_kwargs = {'password': {'write_only': True, 'required': False}}
-    
+        fields = EntitySerializer.Meta.fields + [
+            'email', 
+            'password',
+        ]
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
     def create(self, validated_data):
-        email = validated_data.get('email')
         password = validated_data.get('password')
-        user = self.Meta.model.objects.create_user(email, password)
-        return user
+        validated_data['password'] = make_password(password)
+        return super().create(validated_data)

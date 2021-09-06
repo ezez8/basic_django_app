@@ -1,18 +1,28 @@
 from rest_framework import serializers
+from basic_django_app.serializers import EntitySerializer
 
 from movies.models import Participation, Film, Actor
 
-class FilmSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
+class FilmSerializer(EntitySerializer):
+    class Meta(EntitySerializer.Meta):
         model = Film
-        fields = ['url', 'id', 'name', 'actors', 'created', 'updated', 'deleted',]
+        fields = EntitySerializer.Meta.fields + [
+            'name', 
+            'actors',
+        ]
 
-class ActorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
+class ActorSerializer(EntitySerializer):
+    class Meta(EntitySerializer.Meta):
         model = Actor
-        fields = ['url', 'id', 'name', 'films', 'created', 'updated', 'deleted',]
+        fields = EntitySerializer.Meta.fields + [
+            'name', 
+            'films',
+        ]
 
-class ParticipationSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
+class ParticipationSerializer(EntitySerializer):
+    class Meta(EntitySerializer.Meta):
         model = Participation
-        fields = ['url', 'id', 'film', 'actor', 'created', 'updated', 'deleted',]
+        fields = EntitySerializer.Meta.fields + [
+            'film', 
+            'actor',
+        ]
